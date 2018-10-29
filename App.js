@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { ResRouter } from  './src/components/ResRouter';
+
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql'
 });

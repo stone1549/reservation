@@ -86,7 +86,7 @@ class AddReservationView extends React.Component {
     const { name, hotelName, arrivalDate, departureDate } = this.state.unbookedReservation;
     const formValid = this.validateUnbookedRes();
     return (
-      <ScrollView style={style.container}>
+      <ScrollView style={style.container} keyboardShouldPersistTaps="always" >
         <InputText
           value={name}
           title="Customer Name"

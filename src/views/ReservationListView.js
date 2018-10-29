@@ -31,7 +31,7 @@ export const ReservationListView = () => {
     <View style={style.container}>
       <Query
         query={gql`${GET_ALL_RESERVATIONS}`}
-        pollInterval={10000}
+        pollInterval={3000}
       >
         {({ loading, error, data }) => {
           if (loading) return <ActivityIndicator size="large" color="#002C51" />;

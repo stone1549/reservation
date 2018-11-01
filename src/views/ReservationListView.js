@@ -1,18 +1,20 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
-import { Query } from 'react-apollo';
+import { Query, QueryResult } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Error } from '../components/common/Error';
 import { ReservationItem } from '../components/ReservationItem';
 import { GET_ALL_RESERVATIONS } from '../queries/reservations';
-import type { Reservation } from '../types';
+import type { AllReservationResponse, Reservation} from '../types';
 
 type RenderReservationItem = {
   item: Reservation,
 };
 
-function renderReservation({item}: RenderReservationItem): ReservationItem {
+export const allReservationsQuery = gql`${GET_ALL_RESERVATIONS}`;
+
+export const renderReservation = (item: RenderReservationItem): ReservationItem => {
   const { id, name, hotelName, arrivalDate, departureDate } = item;
   return (
     <ReservationItem
@@ -24,30 +26,39 @@ function renderReservation({item}: RenderReservationItem): ReservationItem {
       departureDate={departureDate}
     />
   );
-}
+};
+
+export const reservationKeyExtractor = (item: Reservation): string =>  item.id;
+
+export const handleQueryResults = ( { loading, error, data }: QueryResult<AllReservationResponse> ): Component => {
+  if (loading) {
+    return <ActivityIndicator size="large" color="#002C51"/>;
+  }
+
+  if (error) {
+    return <Error message={error} />;
+  }
+
+  return (
+    <FlatList
+      data={data.reservations}
+      renderItem={renderReservation}
+      style={style.reservationList}
+      keyExtractor={reservationKeyExtractor}
+      ListFooterComponent={<View style={style.listPadding} />}
+    />
+  );
+};
 
 export const ReservationListView = () => {
   return (
     <View style={style.container}>
       <Query
-        query={gql`${GET_ALL_RESERVATIONS}`}
+        query={allReservationsQuery}
+        children={handleQueryResults}
+        displayName="allReservationsQuery"
         pollInterval={3000}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <ActivityIndicator size="large" color="#002C51" />;
-          if (error) return <Error message={error} />;
-
-          return (
-            <FlatList
-              data={data.reservations}
-              renderItem={renderReservation}
-              style={style.reservationList}
-              keyExtractor={(item) => item.id}
-              ListFooterComponent={<View style={style.listFooter} />}
-            />
-          );
-        }}
-      </Query>
+      />
     </View>
   );
 };
@@ -61,7 +72,7 @@ const style = {
   reservationList: {
     flex: 1,
   },
-  listFooter: {
+  listPadding: {
     flex: 1,
     height: 120,
   },

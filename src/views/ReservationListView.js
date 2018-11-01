@@ -14,7 +14,7 @@ type RenderReservationItem = {
 
 export const allReservationsQuery = gql`${GET_ALL_RESERVATIONS}`;
 
-export const renderReservation = (item: RenderReservationItem): ReservationItem => {
+export const renderReservation = ({ item }: RenderReservationItem): ReservationItem => {
   const { id, name, hotelName, arrivalDate, departureDate } = item;
   return (
     <ReservationItem
@@ -36,7 +36,7 @@ export const handleQueryResults = ( { loading, error, data }: QueryResult<AllRes
   }
 
   if (error) {
-    return <Error message={error} />;
+    return <Error message={error.message} />;
   }
 
   return (

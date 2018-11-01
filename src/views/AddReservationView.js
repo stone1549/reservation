@@ -10,15 +10,6 @@ import { ThrottledButton } from '../components/common/ThrottledButton';
 import { InputText } from '../components/common/InputText';
 import { BLUEISH, WHITEISH } from '../colors';
 
-const initialState: AddReservationViewState = {
-  unbookedReservation: {
-    name: null,
-    hotelName: null,
-    arrivalDate: moment().startOf('day').add(1, 'days').toDate(),
-    departureDate: moment().startOf('day').add(2, 'days').toDate(),
-  },
-};
-
 type AddReservationViewState = {
   unbookedReservation: {
     name: string,
@@ -29,7 +20,18 @@ type AddReservationViewState = {
 };
 
 class AddReservationView extends React.Component {
-  state: AddReservationViewState = initialState;
+  state: AddReservationViewState;
+  constructor(props) {
+    super(props);
+    this.state = {
+      unbookedReservation: {
+        name: null,
+        hotelName: null,
+        arrivalDate: moment().startOf('day').add(1, 'days').toDate(),
+        departureDate: moment().startOf('day').add(2, 'days').toDate(),
+      },
+    };
+  }
 
   updateUnbookedReservation = (key: string, value: string|Date) => {
     if (key === 'arrivalDate') {
@@ -65,7 +67,7 @@ class AddReservationView extends React.Component {
         },
       },
     })
-      .then(res => {
+      .then(() => {
         Actions.pop();
       })
       .catch(err => {
@@ -95,6 +97,11 @@ class AddReservationView extends React.Component {
     return arrivalDate.getTime() < departureDate.getTime();
   };
 
+  onChangeCustomerNameText = (text: string): void => this.updateUnbookedReservation('name', text);
+  onChangeHotelText = (text: string): void => this.updateUnbookedReservation('hotelName', text);
+  onChangeArrivalDate = (date: Date): void => this.updateUnbookedReservation('arrivalDate', date);
+  onChangeDepartureDate = (date: Date): void => this.updateUnbookedReservation('departureDate', date);
+
   render() {
     const { name, hotelName, arrivalDate, departureDate } = this.state.unbookedReservation;
     const formValid = this.validateUnbookedRes();
@@ -103,12 +110,12 @@ class AddReservationView extends React.Component {
         <InputText
           value={name}
           title="Customer Name"
-          onChangeText={(text) => this.updateUnbookedReservation('name', text)}
+          onChangeText={this.onChangeCustomerNameText}
         />
         <InputText
           value={hotelName}
           title="Hotel Name"
-          onChangeText={(text) => this.updateUnbookedReservation('hotelName', text)}
+          onChangeText={this.onChangeHotelText}
         />
         <Text style={style.datePickerLabel} >Arrival Date</Text>
         <View style={style.datePickerContainer} >
@@ -117,16 +124,16 @@ class AddReservationView extends React.Component {
             minimumDate={moment().startOf('day').add(1, 'days').toDate()}
             maximumDate={departureDate}
             date={arrivalDate}
-            onDateChange={(date) => this.updateUnbookedReservation('arrivalDate', date)}
+            onDateChange={this.onChangeArrivalDate}
           />
         </View>
         <Text style={style.datePickerLabel}>Departure Date</Text>
         <View style={style.datePickerContainer} >
           <DatePickerIOS
             mode="date"
-            minimumDate={moment(arrivalDate.getTime()).add(1, 'days').toDate()}
+            minimumDate={moment(arrivalDate.getTime()).startOf('day').add(1, 'days').toDate()}
             date={departureDate}
-            onDateChange={(date) => this.updateUnbookedReservation('departureDate', date)}
+            onDateChange={this.onChangeDepartureDate}
           />
         </View>
         <ThrottledButton onPress={this.bookReservation} disabled={!formValid}>

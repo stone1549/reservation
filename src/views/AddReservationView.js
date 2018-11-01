@@ -40,7 +40,7 @@ class AddReservationView extends React.Component {
         this.setState({
           unbookedReservation: {
             ...this.state.unbookedReservation,
-            departureDate: moment(departureDate.getTime()).add(1, 'days').toDate(),
+            departureDate: moment(departureDate.getTime()).add(1, 'days').startOf('day').toDate(),
             [key]: value,
           }
         });

@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import { Error } from '../components/common/Error';
 import { ReservationItem } from '../components/ReservationItem';
 import { GET_ALL_RESERVATIONS } from '../queries/reservations';
+import { ReservationListHeader } from "../components/ReservationListHeader";
 import type { AllReservationResponse, Reservation} from '../types';
 
 type RenderReservationItem = {
@@ -46,6 +47,8 @@ export const handleQueryResults = ( { loading, error, data }: QueryResult<AllRes
       style={style.reservationList}
       keyExtractor={reservationKeyExtractor}
       ListFooterComponent={<View style={style.listPadding} />}
+      ListHeaderComponent={<ReservationListHeader />}
+      stickyHeaderIndices={[0]}
     />
   );
 };

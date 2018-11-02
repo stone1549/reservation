@@ -59,7 +59,7 @@ const style = {
       height: 2,
     },
     shadowRadius: 1,
-    shadowOpacity: 0.5
+    shadowOpacity: 0.5,
   },
   column: {
     flex: 2,

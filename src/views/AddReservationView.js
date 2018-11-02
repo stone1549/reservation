@@ -9,6 +9,7 @@ import { BOOK_RESERVATION } from '../queries/reservations';
 import { ThrottledButton } from '../components/common/ThrottledButton';
 import { InputText } from '../components/common/InputText';
 import { BLUEISH, WHITEISH } from '../colors';
+import { Error } from "../components/common/Error";
 
 type AddReservationViewState = {
   unbookedReservation: {
@@ -17,6 +18,7 @@ type AddReservationViewState = {
     arrivalDate: Date,
     departureDate: Date,
   },
+  error: string,
 };
 
 class AddReservationView extends React.Component {
@@ -30,6 +32,7 @@ class AddReservationView extends React.Component {
         arrivalDate: moment().startOf('day').add(1, 'days').toDate(),
         departureDate: moment().startOf('day').add(2, 'days').toDate(),
       },
+      error: '',
     };
   }
 
@@ -42,7 +45,8 @@ class AddReservationView extends React.Component {
             ...this.state.unbookedReservation,
             departureDate: moment(departureDate.getTime()).add(1, 'days').startOf('day').toDate(),
             [key]: value,
-          }
+          },
+          error: '',
         });
         return;
       }
@@ -51,7 +55,8 @@ class AddReservationView extends React.Component {
       unbookedReservation: {
         ...this.state.unbookedReservation,
         [key]: value,
-      }
+      },
+      error: '',
     })
   };
 
@@ -71,7 +76,7 @@ class AddReservationView extends React.Component {
         Actions.pop();
       })
       .catch(err => {
-        console.log('err:', err);
+        this.setState({ error: err.message });
       })
   };
 
@@ -103,10 +108,13 @@ class AddReservationView extends React.Component {
   onChangeDepartureDate = (date: Date): void => this.updateUnbookedReservation('departureDate', date);
 
   render() {
-    const { name, hotelName, arrivalDate, departureDate } = this.state.unbookedReservation;
+    const { error, unbookedReservation: { name, hotelName, arrivalDate, departureDate } } = this.state;
     const formValid = this.validateUnbookedRes();
     return (
       <ScrollView style={style.container} keyboardShouldPersistTaps="always" >
+        {!!error &&
+          <Error message={error} />
+        }
         <InputText
           value={name}
           title="Customer Name"
@@ -153,6 +161,7 @@ export default compose(
 
 const style = {
   container: {
+    paddingTop: 5,
     paddingLeft: 15,
     paddingRight: 15,
     flex: 1,

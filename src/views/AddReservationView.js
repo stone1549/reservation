@@ -39,11 +39,12 @@ class AddReservationView extends React.Component {
   updateUnbookedReservation = (key: string, value: string|Date) => {
     if (key === 'arrivalDate') {
       const { departureDate } = this.state.unbookedReservation;
-      if (value.getTime() === departureDate.getTime()) {
+      if (value.getTime() >= departureDate.getTime()) {
+        const newDepartureDate = moment(value.getTime()).add(1, 'days').startOf('day').toDate();
         this.setState({
           unbookedReservation: {
             ...this.state.unbookedReservation,
-            departureDate: moment(departureDate.getTime()).add(1, 'days').startOf('day').toDate(),
+            departureDate: newDepartureDate,
             [key]: value,
           },
           error: '',
@@ -130,7 +131,6 @@ class AddReservationView extends React.Component {
           <DatePickerIOS
             mode="date"
             minimumDate={moment().startOf('day').add(1, 'days').toDate()}
-            maximumDate={departureDate}
             date={arrivalDate}
             onDateChange={this.onChangeArrivalDate}
           />

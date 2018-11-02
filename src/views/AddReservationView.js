@@ -119,11 +119,18 @@ class AddReservationView extends React.Component {
         <InputText
           value={name}
           title="Customer Name"
+          autoCapitalize="words"
+          autoFocus={true}
+          keyboardType={"ascii-capable"}
+          textContentType={"name"}
           onChangeText={this.onChangeCustomerNameText}
         />
         <InputText
           value={hotelName}
           title="Hotel Name"
+          autoCapitalize="words"
+          keyboardType={"ascii-capable"}
+          textContentType={"organizationName"}
           onChangeText={this.onChangeHotelText}
         />
         <Text style={style.datePickerLabel} >Arrival Date</Text>

@@ -38,7 +38,7 @@ export const ThrottledButton = ({ onPress, children, throttleMs=500, style, disa
 const defaultStyle = {
   button: {
     marginTop: 15,
-    height: 55,
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: BLUEISH,
@@ -46,8 +46,9 @@ const defaultStyle = {
   },
   buttonText: {
     color: WHITEISH,
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 30,
+    fontWeight: 'bold',
+    lineHeight: 38,
   },
   disabledStyle: {
     backgroundColor: GRAYISH,

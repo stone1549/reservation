@@ -179,8 +179,9 @@ const style = {
   },
   datePickerLabel: {
     color: BLUEISH,
-    fontSize: 15,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: 'bold',
+    lineHeight: 25,
     textAlign: 'center',
     marginTop: 20,
     marginBottom: 0,

@@ -44,6 +44,9 @@ export const ResRouter = () => {
 const style = {
   title: {
     color: BLUEISH,
+    fontSize: 24,
+    lineHeight: 30,
+    fontWeight: '600',
   },
   navBar: {
     borderBottomWidth: 2,
@@ -51,14 +54,21 @@ const style = {
   },
   rightNavButtonText: {
     fontWeight: '600',
-    fontSize: 12,
-    color: "#002C51",
+    fontSize: 20,
+    lineHeight: 25,
+    color: BLUEISH,
     borderWidth: 2,
     borderColor: BLUEISH,
-    padding: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 8,
+    paddingRight: 8,
     borderRadius: 5,
   },
   backButtonText: {
+    fontWeight: '600',
     color: BLUEISH,
+    fontSize: 20,
+    lineHeight: 25,
   },
 };

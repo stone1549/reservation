@@ -6,16 +6,13 @@ export const ReservationListHeader = () => {
   return (
     <View style={style.container}>
       <View style={style.doubleColumn}>
-        <Text style={style.text}>Hotel Name</Text>
+        <Text style={style.text}>Hotel</Text>
       </View>
-      <View style={[style.doubleColumn, style.columnLeftBorder]}>
-        <Text style={style.text}>Customer Name</Text>
+      <View style={[style.doubleColumn, style.columnWithSideBorder]}>
+        <Text style={style.text}>Name</Text>
       </View>
-      <View style={[style.column, style.columnLeftBorder]}>
-        <Text style={style.text}>Arrival</Text>
-      </View>
-      <View style={[style.column, style.columnLeftBorder]}>
-        <Text style={style.text}>Departure</Text>
+      <View style={style.column}>
+        <Text style={style.text}>Arrive</Text>
       </View>
     </View>
   );
@@ -34,23 +31,25 @@ const style = {
     minHeight: 60,
   },
   column: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   doubleColumn: {
-    flex: 3,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  columnLeftBorder: {
-    borderLeftWidth: 1,
+  columnWithSideBorder: {
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
     borderColor: WHITEISH,
   },
   text: {
-    fontSize: 10,
+    fontSize: 20,
+    lineHeight: 25,
     color: WHITEISH,
-    fontWeight: '600',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
 };

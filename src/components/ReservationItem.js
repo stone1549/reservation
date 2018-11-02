@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { formatDay } from "../util/time";
+import { formatDayNoYear } from "../util/time";
 import { BLUEISH, WHITEISH } from '../colors';
 
 export const navToReservation = (id: string, name: string, hotelName: string, arrivalDate: number,
@@ -25,14 +25,11 @@ export const ReservationItem = ({id, name, hotelName, arrivalDate, departureDate
         <View style={style.doubleColumn}>
           <Text style={style.text}>{hotelName}</Text>
         </View>
-        <View style={[style.doubleColumn, style.columnLeftBorder]}>
+        <View style={[style.doubleColumn, style.columnWithSideBorder]}>
           <Text style={style.text}>{name}</Text>
         </View>
-        <View style={[style.column, style.columnLeftBorder]}>
-          <Text style={style.text}>{formatDay(arrivalDate)}</Text>
-        </View>
-        <View style={[style.column, style.columnLeftBorder]}>
-          <Text style={style.text}>{formatDay(departureDate)}</Text>
+        <View style={style.column}>
+          <Text style={style.text}>{formatDayNoYear(arrivalDate)}</Text>
         </View>
       </View>
     </TouchableHighlight>
@@ -62,21 +59,28 @@ const style = {
     shadowOpacity: 0.5,
   },
   column: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 3,
+    paddingRight: 3,
+  },
+  doubleColumn: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingLeft: 3,
+    paddingRight: 3,
   },
-  doubleColumn: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  columnLeftBorder: {
-    borderLeftWidth: 1,
+  columnWithSideBorder: {
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
     borderColor: BLUEISH,
   },
   text: {
-    fontSize: 10,
+    fontSize: 18,
+    fontWeight: '400',
+    lineHeight: 24,
     color: BLUEISH,
     textAlign: 'center',
   },

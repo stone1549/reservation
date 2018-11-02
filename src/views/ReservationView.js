@@ -62,7 +62,7 @@ const style = {
   },
   row: {
     flex: 1,
-    maxHeight: 40,
+    minHeight: 80,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: GRAYISH,
@@ -82,11 +82,15 @@ const style = {
     color: BLUEISH,
   },
   leftText: {
-    fontSize: 16,
+    fontSize: 20,
+    lineHeight: 25,
+    fontWeight: 'bold',
     textAlign: 'left',
   },
   rightText: {
-    fontSize: 16,
-    textAlign: 'left',
+    fontSize: 20,
+    lineHeight: 25,
+    fontWeight: '600',
+    textAlign: 'right',
   },
 };

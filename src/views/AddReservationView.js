@@ -39,11 +39,12 @@ class AddReservationView extends React.Component {
   updateUnbookedReservation = (key: string, value: string|Date) => {
     if (key === 'arrivalDate') {
       const { departureDate } = this.state.unbookedReservation;
-      if (value.getTime() === departureDate.getTime()) {
+      if (value.getTime() >= departureDate.getTime()) {
+        const newDepartureDate = moment(value.getTime()).add(1, 'days').startOf('day').toDate();
         this.setState({
           unbookedReservation: {
             ...this.state.unbookedReservation,
-            departureDate: moment(departureDate.getTime()).add(1, 'days').startOf('day').toDate(),
+            departureDate: newDepartureDate,
             [key]: value,
           },
           error: '',
@@ -118,11 +119,18 @@ class AddReservationView extends React.Component {
         <InputText
           value={name}
           title="Customer Name"
+          autoCapitalize="words"
+          autoFocus={true}
+          keyboardType={"ascii-capable"}
+          textContentType={"name"}
           onChangeText={this.onChangeCustomerNameText}
         />
         <InputText
           value={hotelName}
           title="Hotel Name"
+          autoCapitalize="words"
+          keyboardType={"ascii-capable"}
+          textContentType={"organizationName"}
           onChangeText={this.onChangeHotelText}
         />
         <Text style={style.datePickerLabel} >Arrival Date</Text>
@@ -130,7 +138,6 @@ class AddReservationView extends React.Component {
           <DatePickerIOS
             mode="date"
             minimumDate={moment().startOf('day').add(1, 'days').toDate()}
-            maximumDate={departureDate}
             date={arrivalDate}
             onDateChange={this.onChangeArrivalDate}
           />
@@ -172,8 +179,9 @@ const style = {
   },
   datePickerLabel: {
     color: BLUEISH,
-    fontSize: 15,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: 'bold',
+    lineHeight: 25,
     textAlign: 'center',
     marginTop: 20,
     marginBottom: 0,

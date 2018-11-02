@@ -23,6 +23,8 @@ const style = {
   message: {
     textAlign: 'center',
     color: REDISH,
-    fontSize: 16,
+    fontSize: 20,
+    lineHeight: 25,
+    fontWeight: '600',
   },
 };

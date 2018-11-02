@@ -7,6 +7,7 @@ import { Error } from '../components/common/Error';
 import { ReservationItem } from '../components/ReservationItem';
 import { GET_ALL_RESERVATIONS } from '../queries/reservations';
 import { ReservationListHeader } from "../components/ReservationListHeader";
+import { BLUEISH } from "../colors";
 import type { AllReservationResponse, Reservation} from '../types';
 
 type RenderReservationItem = {
@@ -31,9 +32,9 @@ export const renderReservation = ({ item }: RenderReservationItem): ReservationI
 
 export const reservationKeyExtractor = (item: Reservation): string =>  item.id;
 
-export const handleQueryResults = ( { loading, error, data }: QueryResult<AllReservationResponse> ): Component => {
+export const handleQueryResults = ({ loading, error, data }: QueryResult<AllReservationResponse>): Component => {
   if (loading) {
-    return <ActivityIndicator size="large" color="#002C51"/>;
+    return <ActivityIndicator size="large" color={BLUEISH} />;
   }
 
   if (error) {

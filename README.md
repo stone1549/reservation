@@ -31,7 +31,7 @@ Then in a separate terminal:
 ```
 git clone https://github.com/stone1549/reservation.git
 
-cd reservation-service
+cd reservation
 
 yarn
 

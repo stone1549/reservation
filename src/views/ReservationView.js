@@ -11,7 +11,7 @@ export const ReservationView = (props: Reservation) => {
     <ScrollView style={style.container}>
       <View style={style.row} >
         <View style={style.left}>
-          <Text style={[style.text, style.leftText]}>Reservation ID:</Text>
+          <Text style={[style.text, style.leftText]}>ID:</Text>
         </View>
         <View style={style.right}>
           <Text style={[style.text, style.rightText]}>{id.substring(0, 6)}</Text>
@@ -19,7 +19,7 @@ export const ReservationView = (props: Reservation) => {
       </View>
       <View style={style.row} >
         <View style={style.left}>
-          <Text style={[style.text, style.leftText]}>Hotel Name:</Text>
+          <Text style={[style.text, style.leftText]}>Hotel:</Text>
         </View>
         <View style={style.right}>
           <Text style={[style.text, style.rightText]}>{hotelName}</Text>
@@ -27,7 +27,7 @@ export const ReservationView = (props: Reservation) => {
       </View>
       <View style={style.row} >
         <View style={style.left}>
-          <Text style={[style.text, style.leftText]}>Customer Name:</Text>
+          <Text style={[style.text, style.leftText]}>Name:</Text>
         </View>
         <View style={style.right}>
           <Text style={[style.text, style.rightText]}>{customerName}</Text>
@@ -35,7 +35,7 @@ export const ReservationView = (props: Reservation) => {
       </View>
       <View style={style.row} >
         <View style={style.left}>
-          <Text style={[style.text, style.leftText]}>Arrival Date:</Text>
+          <Text style={[style.text, style.leftText]}>Arrives:</Text>
         </View>
         <View style={style.right}>
           <Text style={[style.text, style.rightText]}>{formatDay(arrivalDate)}</Text>
@@ -43,7 +43,7 @@ export const ReservationView = (props: Reservation) => {
       </View>
       <View style={style.row} >
         <View style={style.left}>
-          <Text style={[style.text, style.leftText]}>Departure Date:</Text>
+          <Text style={[style.text, style.leftText]}>Departs:</Text>
         </View>
         <View style={style.right}>
           <Text style={[style.text, style.rightText]}>{formatDay(departureDate)}</Text>
